@@ -44,6 +44,8 @@ class Foo
 
 class Foo
 {
+    use PropertyExposerTrait;
+
     private $bar, $baz;
 
     public function doSomething()
