@@ -2,7 +2,63 @@
 
 `adagio/property-exposer` gives access to private properties based on phpDoc directives.
 
-It replaces accessors and mutators for easy property access.
+The goal is to avoid getters and setters in the class body and keep only meaningful
+action methods:
+
+```php
+<?php
+
+// Before
+
+class Foo
+{
+    private $bar, $baz;
+
+    public function setBar($value)
+    {
+        $this->bar = $value;
+    }
+
+    public function getBar()
+    {
+        return $this->bar;
+    }
+
+    public function setBaz($value)
+    {
+        $this->baz = $value;
+    }
+
+    public function getBaz()
+    {
+        return $this->baz;
+    }
+
+    public function doSomething()
+    {
+        // ...
+    }
+}
+
+// After
+
+class Foo
+{
+    private $bar, $baz;
+
+    public function doSomething()
+    {
+        // ...
+    }
+}
+
+```
+
+Domain methods appears immediatly, easying code understanding and maintenance.
+
+One consequence is that DTO objects have no more methods, they appears for what
+their are: values transporters...
+
 
 ## Installation
 
