@@ -76,8 +76,6 @@ After installing, you need to require Composer's autoloader.
 ```php
 <?php
 
-require 'vendor/autoload.php';
-
 use Adagio\PropertyExposer\PropertyExposerTrait;
 
 /**
