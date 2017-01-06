@@ -1,0 +1,23 @@
+{
+    "name": "adagio/property-exposer",
+    "description": "Give access to private properties based on phpDoc directives.",
+    "type": "library",
+    "keywords": ["property", "accessor", "mutator", "getter", "setter"],
+    "homepage": "https://github.com/adagiolabs/property-exposer",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Keven",
+            "email": "keven.mail@gmail.com"
+        }
+    ],
+    "require": {
+        "phpdocumentor/reflection-docblock": "^3.1",
+        "php": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Adagio\\PropertyExposer\\": "src"
+        }
+    }
+}
