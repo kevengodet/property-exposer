@@ -24,11 +24,6 @@ class Foo
         return $this->bar;
     }
 
-    public function setBaz($value)
-    {
-        $this->baz = $value;
-    }
-
     public function getBaz()
     {
         return $this->baz;
@@ -42,6 +37,11 @@ class Foo
 
 // After
 
+/**
+ *
+ * @property int $bar Bar
+ * @property-read string $baz Baz
+ */
 class Foo
 {
     use PropertyExposerTrait;
