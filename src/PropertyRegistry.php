@@ -3,6 +3,7 @@
 namespace Adagio\PropertyExposer;
 
 use phpDocumentor\Reflection\DocBlockFactory;
+use phpDocumentor\Reflection\DocBlock;
 
 final class PropertyRegistry
 {
@@ -40,11 +41,24 @@ final class PropertyRegistry
      */
     static public function forClass($class): PropertyRegistry
     {
+        $properties = [];
         $className = is_object($class) ? get_class($class) : $class;
+        $docComment = (new \ReflectionClass($className))->getDocComment();
+        if ($docComment) {
+            $docBlock = DocBlockFactory::createInstance()->create($docComment);
 
-        $docBlock = DocBlockFactory::createInstance()
-                    ->create((new \ReflectionClass($className))->getDocComment());
+            $properties = self::forDocBLock($docBlock);
+        }
 
+        foreach ((new \ReflectionClass($className))->getTraitNames() as $traitClassName) {
+            $properties = array_merge($properties, self::forClass($traitClassName)->properties);
+        }
+
+        return new self($properties);
+    }
+
+    static private function forDocBlock(DocBlock $docBlock): array
+    {
         $properties = [];
 
         foreach ($docBlock->getTagsByName('property') as $tag) {
@@ -60,6 +74,6 @@ final class PropertyRegistry
             $properties[$tag->getVariableName()]['write'] = true;
         }
 
-        return new self($properties);
+        return $properties;
     }
 }
